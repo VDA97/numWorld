@@ -125,110 +125,120 @@ namespace bw
                         appendbuf(_nun[i]);
                         appendbuf(" ");
                         appendbuf(_nhundreds);
+                        // now send it again if we indeed have something to add
+                        if (_n % 100 > 0)
+                        {
+                            _n = (_n % 100);
+                            nw *_nrec = new nw();
+                            appendbuf(" ");
+                            appendbuf(_nrec->words(_n)); // process it again
+                            break;
+                        }
                         //   shown();
                         break;
                     }
                 }
-                // then if there is an rest continue with the process, else return.
-                if (_n % 100 > 0)
-                {
-                    _n = (_n % 100);
-                    if (_n > 19 && _n < 100)
-                    {
-                        printf("Doing the ty: %ld \n", _n);
-                        numnum _numty = 0;
-                        // printf("_numty: %ld \n", _numty);
-                        //  Check which ty 99 - 99/10, sobra 9. 99 - 9 = 90.ninety.
-                        _numty = (_n - (_n % 10)) / 10;
-                        //  printf(" new _numty: %ld \n", _numty);
-                        if (_n % 10 > 0)
-                        {
-                            _n = _n % 10;
-                            for (int i = 0; i <= 7; i++)
-                            {
+                return shown();
+                /*  // then if there is an rest continue with the process, else return.
+                 if (_n % 100 > 0)
+                 {
+                     _n = (_n % 100);
+                     if (_n > 19 && _n < 100)
+                     {
+                         printf("Doing the ty: %ld \n", _n);
+                         numnum _numty = 0;
+                         // printf("_numty: %ld \n", _numty);
+                         //  Check which ty 99 - 99/10, sobra 9. 99 - 9 = 90.ninety.
+                         _numty = (_n - (_n % 10)) / 10;
+                         //  printf(" new _numty: %ld \n", _numty);
+                         if (_n % 10 > 0)
+                         {
+                             _n = _n % 10;
+                             for (int i = 0; i <= 7; i++)
+                             {
 
-                                if (_numty == (i + 2))
-                                {
-                                    //           printf("before appendbuf: %ld \n", _numty);
-                                    //    clearbuf();
-                                    //   initbuf();
-                                    appendbuf(" ");
-                                    appendbuf(_nty[i]);
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i <= 9; i++)
-                            {
-                                if (_n == i)
-                                {
-                                    //         printf("before appendbuf: %ld \n", _n);
-                                    // clearbuf();
-                                    // initbuf();
-                                    appendbuf(" ");
-                                    appendbuf(_nun[i]);
-                                    return shown();
-                                    break;
-                                }
-                            }
-                            return nullptr;
-                        }
-                        else
-                        {
-                            for (int i = 0; i <= 7; i++)
-                            {
+                                 if (_numty == (i + 2))
+                                 {
+                                     //           printf("before appendbuf: %ld \n", _numty);
+                                     //    clearbuf();
+                                     //   initbuf();
+                                     appendbuf(" ");
+                                     appendbuf(_nty[i]);
+                                     break;
+                                 }
+                             }
+                             for (int i = 0; i <= 9; i++)
+                             {
+                                 if (_n == i)
+                                 {
+                                     //         printf("before appendbuf: %ld \n", _n);
+                                     // clearbuf();
+                                     // initbuf();
+                                     appendbuf(" ");
+                                     appendbuf(_nun[i]);
+                                     return shown();
+                                     break;
+                                 }
+                             }
+                             return nullptr;
+                         }
+                         else
+                         {
+                             for (int i = 0; i <= 7; i++)
+                             {
 
-                                if (_numty == (i + 2))
-                                {
-                                    //       printf("before appendbuf: %ld \n", _numty);
-                                    //  clearbuf();
-                                    // initbuf();
-                                    appendbuf(" ");
-                                    appendbuf(_nty[i]);
-                                    return shown();
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (_n > 9 && _n < 20)
-                    {
-                        printf("Doing the tens: %ld \n", _n);
-                        for (int i = 0; i <= 9; i++)
-                        {
-                            if (_n == (i + 10))
-                            {
-                                // printf("before appendbuf: %ld \n", _n);
-                                //  clearbuf();
-                                //  initbuf();
-                                appendbuf(" ");
-                                appendbuf(_nteen[i]);
-                                return shown();
-                                break;
-                            }
-                        }
-                        return nullptr;
-                    }
-                    if (_n < 10)
-                    {
-                        for (int i = 0; i <= 9; i++)
-                        {
-                            if (_n == i)
-                            {
-                                // printf("before appendbuf: %ld \n", _n);
-                                appendbuf(" ");
-                                appendbuf(_nun[i]);
-                                return shown();
-                                break;
-                            }
-                        }
-                        return nullptr;
-                    }
-                }
-                else
-                {
-                    return shown();
-                    return nullptr;
-                }
+                                 if (_numty == (i + 2))
+                                 {
+                                     //       printf("before appendbuf: %ld \n", _numty);
+                                     //  clearbuf();
+                                     // initbuf();
+                                     appendbuf(" ");
+                                     appendbuf(_nty[i]);
+                                     return shown();
+                                     break;
+                                 }
+                             }
+                         }
+                     }
+                     if (_n > 9 && _n < 20)
+                     {
+                         printf("Doing the tens: %ld \n", _n);
+                         for (int i = 0; i <= 9; i++)
+                         {
+                             if (_n == (i + 10))
+                             {
+                                 // printf("before appendbuf: %ld \n", _n);
+                                 //  clearbuf();
+                                 //  initbuf();
+                                 appendbuf(" ");
+                                 appendbuf(_nteen[i]);
+                                 return shown();
+                                 break;
+                             }
+                         }
+                         return nullptr;
+                     }
+                     if (_n < 10)
+                     {
+                         for (int i = 0; i <= 9; i++)
+                         {
+                             if (_n == i)
+                             {
+                                 // printf("before appendbuf: %ld \n", _n);
+                                 appendbuf(" ");
+                                 appendbuf(_nun[i]);
+                                 return shown();
+                                 break;
+                             }
+                         }
+                         return nullptr;
+                     }
+                 }
+                 else
+                 {
+                     return shown();
+                     return nullptr;
+                 } */
             }
             if (_n > 19 && _n < 100)
             {
@@ -322,9 +332,18 @@ namespace bw
 
 int main(int argc, char **argv)
 {
-    uint64_t n = 198;
+    uint64_t n[9] = {1, 12, 25, 98, 100, 101, 125, 256, 999};
     bw::nw *obj = new bw::nw();
-    printf("n %ld, _buf:%s\n", n, obj->words(n));
+
+    printf("n %ld, _buf:%s\n", n[0], obj->words(n[0]));
+    printf("n %ld, _buf:%s\n", n[1], obj->words(n[1]));
+    printf("n %ld, _buf:%s\n", n[2], obj->words(n[2]));
+    printf("n %ld, _buf:%s\n", n[3], obj->words(n[3]));
+    printf("n %ld, _buf:%s\n", n[4], obj->words(n[4]));
+    printf("n %ld, _buf:%s\n", n[5], obj->words(n[5]));
+    printf("n %ld, _buf:%s\n", n[6], obj->words(n[6]));
+    printf("n %ld, _buf:%s\n", n[7], obj->words(n[7]));
+    printf("n %ld, _buf:%s\n", n[8], obj->words(n[8]));
     // std::cout << "spell the number " << obj->words(n) << std::endl;
     // std::printf("%" PRId64 "\n", n);
     return 0;
