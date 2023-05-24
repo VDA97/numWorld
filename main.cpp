@@ -89,7 +89,6 @@ namespace bw
             {
                 printf("Doing the hundreds: %ld \n", _n);
                 numnum _nrest;
-
                 _nrest = (_n - (_n % 100)) / 100;
                 for (int i = 0; i <= 9; i++)
                 {
@@ -119,47 +118,26 @@ namespace bw
                 printf("Doing the ty: %ld \n", _n);
                 numnum _numty = 0;
                 _numty = (_n - (_n % 10)) / 10;
-                if (_n % 10 > 0)
+                for (int i = 0; i <= 7; i++)
                 {
-                    _n = _n % 10;
-                    for (int i = 0; i <= 7; i++)
-                    {
 
-                        if (_numty == (i + 2))
-                        {
-                            clearbuf();
-                            initbuf();
-                            appendbuf(_nty[i]);
-                            break;
-                        }
-                    }
-                    for (int i = 0; i <= 9; i++)
+                    if (_numty == (i + 2))
                     {
-                        if (_n == i)
+                        clearbuf();
+                        initbuf();
+                        appendbuf(_nty[i]);
+                        if (_n % 10 > 0)
                         {
+                            _n = (_n % 10);
+                            nw *_nrec = new nw();
                             appendbuf(" ");
-                            appendbuf(_nun[i]);
-                            return shown();
+                            appendbuf(_nrec->words(_n)); // process it again
                             break;
                         }
-                    }
-                    return nullptr;
-                }
-                else
-                {
-                    for (int i = 0; i <= 7; i++)
-                    {
-
-                        if (_numty == (i + 2))
-                        {
-                            clearbuf();
-                            initbuf();
-                            appendbuf(_nty[i]);
-                            return shown();
-                            break;
-                        }
+                        break;
                     }
                 }
+                return shown();
             }
             if (_n > 9 && _n < 20)
             {
@@ -171,10 +149,10 @@ namespace bw
                         clearbuf();
                         initbuf();
                         appendbuf(_nteen[i]);
-                        return shown();
                         break;
                     }
                 }
+                return shown();
             }
             if (_n < 10)
             {
@@ -185,10 +163,10 @@ namespace bw
                         clearbuf();
                         initbuf();
                         appendbuf(_nun[i]);
-                        return shown();
                         break;
                     }
                 }
+                return shown();
             }
         }
     };
