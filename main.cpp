@@ -4,6 +4,7 @@
 #include <memory>
 #include <inttypes.h>
 #include <cstring>
+#include <math.h>
 
 namespace bw
 {
@@ -81,9 +82,27 @@ namespace bw
             _n = num;
             if (_n > 999)
             {
-                printf("Is higher than 999, do the thousands: %ld \n", _n);
-                clearbuf();
-                return nullptr;
+                for (int i = 3; i > 0; i--)
+                {
+                    // Apply the exponencial according to index
+                    numnum power = (numnum)pow(1000.0, i);
+                    printf("Is higher than 999, do the thousands: %ld \n", _n);
+                    numnum _nrest;
+                    _nrest = (_n - (_n % power)) / power;
+                    // check if we have a rest
+                    if (_nrest)
+                    {
+                        // check the rest value, it could be started in hundred, so _nrest should be passed forward.
+                        clearbuf();
+                        initbuf();
+                        nw *_nrec = new nw();
+                        appendbuf(_nrec->words(_nrest)); // process the _nrest
+                        appendbuf(" ");
+                        appendbuf(_nllions[i]);
+                        break;
+                    }
+                }
+                return shown();
             }
             if (_n > 99 && _n < 1000)
             {
@@ -174,7 +193,7 @@ namespace bw
 
 int main(int argc, char **argv)
 {
-    uint64_t n[9] = {1, 12, 25, 98, 100, 101, 125, 256, 999};
+    uint64_t n[12] = {1, 12, 25, 98, 100, 101, 125, 256, 999, 1000, 13400, 1256598};
     bw::nw *obj = new bw::nw();
 
     printf("n %ld, _buf:%s\n", n[0], obj->words(n[0]));
@@ -186,5 +205,8 @@ int main(int argc, char **argv)
     printf("n %ld, _buf:%s\n", n[6], obj->words(n[6]));
     printf("n %ld, _buf:%s\n", n[7], obj->words(n[7]));
     printf("n %ld, _buf:%s\n", n[8], obj->words(n[8]));
+    printf("n %ld, _buf:%s\n", n[9], obj->words(n[9]));
+    printf("n %ld, _buf:%s\n", n[10], obj->words(n[10]));
+    printf("n %ld, _buf:%s\n", n[11], obj->words(n[11]));
     return 0;
 }
