@@ -16,7 +16,7 @@ namespace bw
     static const char *_nteen[] = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
     static const char *_nty[] = {"twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"};
     static const char *_nhundreds = "hundred";
-    static const char *_nllions[] = {"thousand", "million", "billion"};
+    static const char *_nllions[] = {"null", "thousand", "million", "billion"};
 
     class nw
     {
@@ -90,13 +90,16 @@ namespace bw
                     numnum _nrest;
                     _nrest = (_n - (_n % power)) / power;
                     // check if we have a rest
+                    // update _n to be processed again
+                    _n = (_n % power);
                     if (_nrest)
                     {
                         // check the rest value, it could be started in hundred, so _nrest should be passed forward.
+                        printf("index i %d\n", i);
                         clearbuf();
                         initbuf();
                         nw *_nrec = new nw();
-                        appendbuf(_nrec->words(_nrest)); // process the _nrest
+                        appendbuf(_nrec->words(_n)); // process the updated _n
                         appendbuf(" ");
                         appendbuf(_nllions[i]);
                         break;
