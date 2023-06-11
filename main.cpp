@@ -90,8 +90,10 @@ namespace bw
                     numnum _nrest;
                     _nrest = (_n - (_n % power)) / power;
                     // check if we have a rest
+                    printf("_nrest:%ld \n", _nrest);
                     // update _n to be processed again
                     _n = (_n % power);
+                    printf("_npower:%ld \n", _n);
                     if (_nrest)
                     {
                         // check the rest value, it could be started in hundred, so _nrest should be passed forward.
@@ -99,9 +101,16 @@ namespace bw
                         clearbuf();
                         initbuf();
                         nw *_nrec = new nw();
-                        appendbuf(_nrec->words(_n)); // process the updated _n
+                        appendbuf(_nrec->words(_nrest)); // process the updated _n
                         appendbuf(" ");
                         appendbuf(_nllions[i]);
+                        appendbuf(" ");
+
+                        if (_n > 0)
+                        {
+                            nw *_nrec2 = new nw();
+                            appendbuf(_nrec2->words(_n)); // process the updated _n
+                        }
                         break;
                     }
                 }
@@ -196,20 +205,13 @@ namespace bw
 
 int main(int argc, char **argv)
 {
-    uint64_t n[12] = {1, 12, 25, 98, 100, 101, 125, 256, 999, 1000, 13400, 1256598};
+    std::vector<uint64_t> n = {15350, 28542, 456098, 1598097};
     bw::nw *obj = new bw::nw();
 
-    printf("n %ld, _buf:%s\n", n[0], obj->words(n[0]));
-    printf("n %ld, _buf:%s\n", n[1], obj->words(n[1]));
-    printf("n %ld, _buf:%s\n", n[2], obj->words(n[2]));
-    printf("n %ld, _buf:%s\n", n[3], obj->words(n[3]));
-    printf("n %ld, _buf:%s\n", n[4], obj->words(n[4]));
-    printf("n %ld, _buf:%s\n", n[5], obj->words(n[5]));
-    printf("n %ld, _buf:%s\n", n[6], obj->words(n[6]));
-    printf("n %ld, _buf:%s\n", n[7], obj->words(n[7]));
-    printf("n %ld, _buf:%s\n", n[8], obj->words(n[8]));
-    printf("n %ld, _buf:%s\n", n[9], obj->words(n[9]));
-    printf("n %ld, _buf:%s\n", n[10], obj->words(n[10]));
-    printf("n %ld, _buf:%s\n", n[11], obj->words(n[11]));
+    for (int i = 0; i < n.size(); i++)
+    {
+        printf("vector %ld, _buf:%s\n", n[i], obj->words(n[i]));
+    }
+
     return 0;
 }
